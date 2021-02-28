@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * Code representation of a playing card.
  * Added functionalities:
- * -Reverse mapping of Enums
+ * -Reverse mapping of enums
  * @author Seiji Dominic Bautista
  */
 public class Card implements Comparable<Card> {
@@ -150,7 +150,7 @@ public class Card implements Comparable<Card> {
       * Returns the equality of parameter obj and this instance.
       *
       * @param card Object
-      * @return param and this' equality
+      * @return card and this instance's equality
       */
      public boolean equals(Object card) {
           if (card == this)
@@ -164,7 +164,11 @@ public class Card implements Comparable<Card> {
           return false;
      }
 
-     @Override
+     /**
+	 * 
+	 * @param o
+	 */
+	@Override
      public int compareTo(Card o) {
           if (this.value.getNumber() > o.value.getNumber()) {
                return 1;
@@ -173,6 +177,13 @@ public class Card implements Comparable<Card> {
           } else {
                return 0;
           }
+     }
+
+     public static void main(String[] args) {
+          Card c = new Card();
+          c.setValue(9);
+          c.setSuit(6);
+          System.out.println(c);
      }
 
      @Override
