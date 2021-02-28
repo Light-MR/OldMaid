@@ -8,7 +8,7 @@ package OldMaid;
 import java.util.Random;
 
 /**
- * Holds all available cards. BASICALLY A UTILITY CLASS.
+ * Holds all available cards. UTILITY CLASS.
  * @author Seiji Dominic Bautista
  */
 public class Deck {

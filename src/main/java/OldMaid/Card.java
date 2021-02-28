@@ -175,13 +175,6 @@ public class Card implements Comparable<Card> {
           }
      }
 
-     public static void main(String[] args) {
-          Card c = new Card();
-          c.setValue(9);
-          c.setSuit(6);
-          System.out.println(c);
-     }
-
      @Override
      public String toString() {
           return String.format("%d of %s", this.getValue(), this.getSuit().getName());
