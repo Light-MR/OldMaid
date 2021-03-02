@@ -103,16 +103,23 @@ public class Deck {
      }
 
      //==================added 2/3===========================
-
-
-
-     public static void distribute(ArrayList<Player> players) {
-          int cardsPerPerson = count / players.size();
-
-          for (Player player : players) {
-               for (int j = 0; j < cardsPerPerson; j++) {
-                    player.addToHand(pickCard());
-               }
-          }
-     }
+//
+//     /**
+//      * Accepts an arraylist of players and distribute the cards to those
+//      * players evenly. Left cards are distributed to random players.
+//      * @param players ArrayList of players
+//      */
+//     public static void distribute(ArrayList<Player> players) {
+//          int cardsPerPerson = count / players.size();
+//
+//          for (Player player : players) {
+//               for (int j = 0; j < cardsPerPerson; j++) {
+//                    player.addToHand(pickCard());
+//               }
+//          }
+//
+//          while (count != 0) {
+//               players.get(random.nextInt(players.size())).addToHand(pickCard());
+//          }
+//     }
 }
