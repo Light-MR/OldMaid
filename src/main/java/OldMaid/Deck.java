@@ -5,6 +5,7 @@
  */
 package OldMaid;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -12,15 +13,14 @@ import java.util.Random;
  * @author Seiji Dominic Bautista
  */
 public class Deck {
-     //I will use card suit's .ordinal();
      //I will use the first col of flags for suit availability.
      private static final boolean[][] cards = new boolean[4][14];
      public static int count = 52;
-     static Random random = new Random();//
+     static Random random = new Random();
 
      static {
           for (int s = 0; s < 4; s++) {
-               for (int f = 0; f < 13; f++) {
+               for (int f = 0; f < 14; f++) {
                     cards[s][f] = true;
                }
           }
@@ -30,11 +30,31 @@ public class Deck {
           return cards[card.getSuit().getNumber()][card.getValue()];
      }
 
+     /**
+      * Pick a specific Card
+      * @param suit
+      * @param number
+      * @return
+      */
+     public static Card pickCard(int suit, int number) {
+          if (checkAvailability(suit, number)) {
+               cards[suit][number] = false;
+               return new Card(suit, number);
+          }
+          return null;
+     }
+
+     /**
+      * Pick a random Card
+      * @return
+      */
      public static Card pickCard() {
           int suit, val;
           do {
-               suit = random.nextInt(4);
-               val = random.nextInt(13) + 1;
+//               suit = random.nextInt(4);
+//               val = random.nextInt(13) + 1;
+               suit = (int) (Math.random() * 4);
+               val = (int) (Math.random() * 13) + 1;
           } while(!checkAvailability(suit, val));
           return new Card(suit, val);
      }
@@ -80,5 +100,19 @@ public class Deck {
 
      public static boolean isEmpty() {
           return cards[0][0] && cards[1][0] && cards[2][0] && cards[3][0];
+     }
+
+     //==================added 2/3===========================
+
+
+
+     public static void distribute(ArrayList<Player> players) {
+          int cardsPerPerson = count / players.size();
+
+          for (Player player : players) {
+               for (int j = 0; j < cardsPerPerson; j++) {
+                    player.addToHand(pickCard());
+               }
+          }
      }
 }
