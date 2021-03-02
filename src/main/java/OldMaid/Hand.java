@@ -7,7 +7,7 @@ package OldMaid;
 
 /**
  *
- * @author seiji
+ * @author
  */
 public class Hand {
 	 
