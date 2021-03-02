@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Code representation of a playing card.
  * Added functionalities:
  * -Reverse mapping of enums
- * @author Seiji Dominic Bautista
+ * @author ARBS
  */
 public class Card implements Comparable<Card> {
 
