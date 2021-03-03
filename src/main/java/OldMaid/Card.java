@@ -18,6 +18,9 @@ public class Card implements Comparable<Card> {
      private Suit suit;//clubs, spades, diamonds, hearts
      private Value value;//1-13
 
+     /**
+      *
+      */
      enum Value {
           ACE(1),
           TWO(2),
@@ -57,6 +60,9 @@ public class Card implements Comparable<Card> {
           }
      }
 
+     /**
+      *
+      */
      enum Suit {
           HEARTS(0, "Hearts"),
           DIAMONDS(1, "Diamonds"),
@@ -101,14 +107,13 @@ public class Card implements Comparable<Card> {
           }
      }
 
-     public Card() {}
-
      public Card(int suit, int value) {
           setSuit(suit);
           setValue(value);
      }
 
      /**
+      * Suit getter
       * @return the suit
       */
      public Suit getSuit() {
@@ -116,6 +121,7 @@ public class Card implements Comparable<Card> {
      }
 
      /**
+      * Suit setter using String as parameter
       * @param suit the suit to set
       */
      public void setSuit(String suit) {
@@ -126,6 +132,10 @@ public class Card implements Comparable<Card> {
           }
      }
 
+     /**
+      * Set suit using suit number representation.
+      * @param suit int
+      */
      public void setSuit(int suit) {
           this.suit = Suit.getByNum(suit);
      }
@@ -166,7 +176,7 @@ public class Card implements Comparable<Card> {
 
      /**
 	 * 
-	 * @param o
+	 * @param o Card to compare to this instance.
 	 */
 	@Override
      public int compareTo(Card o) {
@@ -179,15 +189,9 @@ public class Card implements Comparable<Card> {
           }
      }
 
-     public static void main(String[] args) {
-          Card c = new Card();
-          c.setValue(9);
-          c.setSuit(6);
-          System.out.println(c);
-     }
-
      @Override
      public String toString() {
-          return String.format("%d of %s", this.getValue(), this.getSuit().getName());
+          return String.format("%d of %s",
+                  this.getValue(), this.getSuit().getName());
      }
 }
