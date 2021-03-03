@@ -5,10 +5,15 @@
  */
 package OldMaid;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author
  */
 public class Player {
-	 
+      String name;
+      Hand hand;
+
+      public Player() {}
 }

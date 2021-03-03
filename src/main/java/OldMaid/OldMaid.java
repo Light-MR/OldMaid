@@ -5,10 +5,16 @@
  */
 package OldMaid;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author
  */
 public class OldMaid {
-	 
+	 ArrayList<Player> players = new ArrayList<>();
+	 Card oldMaid;
+	 Deck deck;
+
+     public OldMaid() {}
 }

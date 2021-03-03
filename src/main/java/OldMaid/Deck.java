@@ -152,7 +152,7 @@ public class Deck {
       * players evenly. Left cards are distributed to random players.
       * @param players ArrayList of players
       */
-     public static void distribute(ArrayList<Player> players) {
+     public void distribute(ArrayList<Player> players) {
           // TODO: 2021-03-03 Implement card distribution once Player class is finished.
      }
 }
