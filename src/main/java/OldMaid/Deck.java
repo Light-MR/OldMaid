@@ -13,12 +13,12 @@ import java.util.Random;
  * @author Seiji Dominic Bautista
  */
 public class Deck {
-     //I will use the first col of flags for suit availability.
      private static final boolean[][] cards = new boolean[4][14];
-     public static int count = 52;
+     public static int cardsInDeck = 52;
      static Random random = new Random();
 
      static {
+          //Set all cards as available.
           for (int s = 0; s < 4; s++) {
                for (int f = 0; f < 14; f++) {
                     cards[s][f] = true;
@@ -26,39 +26,13 @@ public class Deck {
           }
      }
 
-     public boolean contains(Card card) {
-          return cards[card.getSuit().getNumber()][card.getValue()];
-     }
-
      /**
-      * Pick a specific Card
-      * @param suit
-      * @param number
-      * @return
+      * This method iterates through the cards array and returns true if card is
+      * available and returns false if not.
+      * @param suit Number representation of suit
+      * @param value Card value
+      * @return card availability.
       */
-     public static Card pickCard(int suit, int number) {
-          if (checkAvailability(suit, number)) {
-               cards[suit][number] = false;
-               return new Card(suit, number);
-          }
-          return null;
-     }
-
-     /**
-      * Pick a random Card
-      * @return
-      */
-     public static Card pickCard() {
-          int suit, val;
-          do {
-//               suit = random.nextInt(4);
-//               val = random.nextInt(13) + 1;
-               suit = (int) (Math.random() * 4);
-               val = (int) (Math.random() * 13) + 1;
-          } while(!checkAvailability(suit, val));
-          return new Card(suit, val);
-     }
-
      public static boolean checkAvailability(int suit, int value) {
           boolean suitAvailable = cards[suit][0];
           boolean cardAvailable = false;
@@ -71,7 +45,7 @@ public class Deck {
           //check card availability.
           if (cards[suit][value]) {
                cards[suit][value] = false;
-               count--;
+               cardsInDeck--;
                cardAvailable = true;
           }
 
@@ -88,38 +62,71 @@ public class Deck {
           return cardAvailable;
      }
 
-//     public static int countCards() {
-//          int count = 0;
-//          for (int i = 0; i < 4; i++) {
-//               for (boolean b : cards[i]) {
-//                    if (b) count++;
-//               }
-//          }
-//          return count;
-//     }
+     /**
+      * Pick a specific Card.
+      * @param suit card suit
+      * @param number card value
+      * @return the Card if available. Return null otherwise.
+      */
+     public static Card pickCard(int suit, int number) {
+          if (checkAvailability(suit, number)) {
+               cards[suit][number] = false;
+               return new Card(suit, number);
+          }
+          return null;
+     }
 
+     /**
+      * Pick a random Card
+      * @return a random unique Card.
+      */
+     public static Card pickCard() {
+          int suit, val;
+          do {
+//               suit = random.nextInt(4);
+//               val = random.nextInt(13) + 1;
+               suit = (int) (Math.random() * 4);
+               val = (int) (Math.random() * 13) + 1;
+          } while(!checkAvailability(suit, val));
+          return new Card(suit, val);
+     }
+
+//========================Utility methods from here==========================//
+
+     public static int countCards() {
+          return cardsInDeck;
+     }
+
+     /**
+      *
+      * @return boolean
+      */
      public static boolean isEmpty() {
           return cards[0][0] && cards[1][0] && cards[2][0] && cards[3][0];
      }
 
-     //==================added 2/3===========================
-//
-//     /**
-//      * Accepts an arraylist of players and distribute the cards to those
-//      * players evenly. Left cards are distributed to random players.
-//      * @param players ArrayList of players
-//      */
-//     public static void distribute(ArrayList<Player> players) {
-//          int cardsPerPerson = count / players.size();
-//
-//          for (Player player : players) {
-//               for (int j = 0; j < cardsPerPerson; j++) {
-//                    player.addToHand(pickCard());
-//               }
-//          }
-//
-//          while (count != 0) {
-//               players.get(random.nextInt(players.size())).addToHand(pickCard());
-//          }
-//     }
+     public static boolean contains(Card card) {
+          return cards[card.getSuit().getNumber()][card.getValue()];
+     }
+
+     /**
+      * Accepts an arraylist of players and distribute the cards to those
+      * players evenly. Left cards are distributed to random players.
+      * @param players ArrayList of players
+      */
+     public static void distribute(ArrayList<Player> players) {
+          int cardsPerPerson = cardsInDeck / players.size();
+
+          //Distribute random cards equally to each players.
+          for (Player player : players) {
+               for (int j = 0; j < cardsPerPerson; j++) {
+                    player.addToHand(pickCard());
+               }
+          }
+
+          //Distribute cards that are left randomly to random players.
+          while (cardsInDeck != 0) {
+               players.get(random.nextInt(players.size())).addToHand(pickCard());
+          }
+     }
 }
