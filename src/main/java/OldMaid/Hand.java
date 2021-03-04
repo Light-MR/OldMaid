@@ -5,10 +5,14 @@
  */
 package OldMaid;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author
  */
 public class Hand {
-	 
+	 LinkedList<Card> cards = new LinkedList<>();
+
+	 public Hand() {}
 }
