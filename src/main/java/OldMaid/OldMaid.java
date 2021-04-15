@@ -21,4 +21,8 @@ public class OldMaid {
      	deck = Deck.getDeck();
      	oldMaid = deck.pickCard(Card.Suit.HEARTS, Card.Value.QUEEN);
 	 }
+
+	 public void initialize() {
+
+	 }
 }

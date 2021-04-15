@@ -27,5 +27,8 @@ public class Main {
         CardDistributor.distribute(initPlayers);    //Distribute cards to players
         LinkedNodes<Player> players = new LinkedNodes<>(initPlayers, true); //Create cyclic list of players
         System.out.println("HEllo");
+        /*
+        what do you guys think if we make a class like "OldMadiInitializer" or something.
+         */
     }
 }

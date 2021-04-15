@@ -7,7 +7,7 @@ import java.util.*;
  * @author Dominic
  */
 public class CardDistributor {
-    private static final Deck deck = Deck.getDeck(); //Still not sure about using singleton on the deck class.
+    private static final Deck deck = Deck.getDeck(); //Still not sure about the Deck implementing Singleton pattern
     private static final Random rand = new Random();
 
     /**
@@ -27,5 +27,4 @@ public class CardDistributor {
             players.get(rand.nextInt(players.size())).addToHand(deck.pickCard());
         }
     }
-
 }
