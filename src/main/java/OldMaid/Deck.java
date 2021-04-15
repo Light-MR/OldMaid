@@ -7,7 +7,6 @@ package OldMaid;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Consumer;
 
 /**
  * Holds all available cards.

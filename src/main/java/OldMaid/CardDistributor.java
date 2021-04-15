@@ -2,11 +2,20 @@ package OldMaid;
 
 import java.util.*;
 
+/**
+ * A class whose sole purpose is to distribute cards. (Oh god)
+ * @author Dominic
+ */
 public class CardDistributor {
-    private static final Deck deck = Deck.getDeck();
+    private static final Deck deck = Deck.getDeck(); //Still not sure about using singleton on the deck class.
     private static final Random rand = new Random();
 
-    public static void distribute(ArrayList<Player> players) {
+    /**
+     * Hand Cards = (Playing cards) / (Player Number);
+     * (While there are left cards, randomly distribute);
+     * @param players
+     */
+    public static void distribute(List<Player> players) {
         int handSize = deck.getCardsInDeck() / players.size();
         players.forEach(player -> {
             for (int i = 0; i < handSize; i++) {
