@@ -7,6 +7,7 @@ package OldMaid;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * Holds all available cards.
@@ -16,19 +17,20 @@ public class Deck {
      private final boolean[][] cards;
      private int cardsInDeck;
      Random random = new Random();
+     private static Deck deck = null;
 
      /**
       * Instantiate boolean[][] cards and set all flags to true.
       * Instantiate cardsInDeck (All available cards)
       */
-     public Deck() {
-          cardsInDeck = 3;
+     private Deck() {
           cards = new boolean[4][14];
           for (int s = 0; s < 4; s++) {
                for (int f = 0; f < 14; f++) {
                     cards[s][f] = true;
                }
           }
+          countCards();
      }
 
      /**
@@ -73,7 +75,8 @@ public class Deck {
           which indicates the availability of the suit.
            */
           for (int i = 1; i < 14; i++) {
-               suitAvailable = cards[suit][1] || cards[suit][i];
+               suitAvailable = cards[suit][i];
+               if (suitAvailable) break;
           }
 
           //set the suit flag to false.
@@ -91,6 +94,25 @@ public class Deck {
       * @return the Card if available. Return null otherwise.
       */
      public Card pickCard(int suit, int number) {
+          try {
+               if (checkAvailability(suit, number)) {
+                    cards[suit][number] = false;
+                    return new Card(suit, number);
+               }
+          } catch (AssertionError e) {
+               System.out.println("All cards in the deck are gone.");
+               return null;
+          }
+
+          System.out.println("This card is not available.");
+          return null;
+     }
+
+
+     public Card pickCard(Card.Suit suits, Card.Value value) {
+          int suit = suits.getNumber();
+          int number = value.getNumber();
+
           try {
                if (checkAvailability(suit, number)) {
                     cards[suit][number] = false;
@@ -132,7 +154,16 @@ public class Deck {
       * @return cardsInDeck
       */
      public int countCards() {
-          return cardsInDeck;
+          int count = 0;
+
+          for (boolean[] suit : this.cards) {
+               for (int i = 1; i < 14; i++) {
+                    if (suit[i]) count++;
+               }
+          }
+
+          cardsInDeck = count;
+          return count;
      }
 
      /**
@@ -140,7 +171,7 @@ public class Deck {
       * @return boolean
       */
      public boolean isEmpty() {
-          return !(cards[0][0] && cards[1][0] && cards[2][0] && cards[3][0]);
+          return !(cards[0][0] || cards[1][0] || cards[2][0] || cards[3][0]);
      }
 
      public boolean contains(Card card) {
@@ -153,6 +184,17 @@ public class Deck {
       * @param players ArrayList of players
       */
      public void distribute(ArrayList<Player> players) {
-          // TODO: 2021-03-03 Implement card distribution once Player class is finished.
+
+     }
+
+     public static Deck getDeck() {
+          if (deck != null) {
+               return deck;
+          } else
+               return new Deck();
+     }
+
+     public int getCardsInDeck() {
+          return cardsInDeck;
      }
 }

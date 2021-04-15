@@ -6,15 +6,19 @@
 package OldMaid;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
- * @author
+ * @author Seiji Dominic Bautista
  */
 public class OldMaid {
-	 ArrayList<Player> players = new ArrayList<>();
+	 LinkedNodes<Player> players;
 	 Card oldMaid;
 	 Deck deck;
 
-     public OldMaid() {}
+     public OldMaid() {
+     	deck = Deck.getDeck();
+     	oldMaid = deck.pickCard(Card.Suit.HEARTS, Card.Value.QUEEN);
+	 }
 }
