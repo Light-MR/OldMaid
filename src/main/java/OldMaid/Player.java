@@ -11,9 +11,25 @@ import java.util.LinkedList;
  *
  * @author
  */
-public class Player {
+class Player {
       String name;
       Hand hand;
 
-      public Player() {}
+      public Player(String name, Hand hand) {
+            this.name = name;
+            this. hand = hand;
+      }
+
+      public Player(String name) {
+            this.name = name;
+            hand = new Hand();
+      }
+
+      public void addToHand(Card card) {
+            hand.addToHand(card);
+      }
+
+      public Card disposeCard(int index) {
+            return hand.disposeCard(index);
+      }
 }

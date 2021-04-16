@@ -12,7 +12,20 @@ import java.util.LinkedList;
  * @author
  */
 public class Hand {
-	 LinkedList<Card> cards = new LinkedList<>();
 
-	 public Hand() {}
+	LinkedList<Card> hand = new LinkedList<>();
+
+	public Hand() {
+	}
+
+	public void addToHand(Card card) {
+		hand.add(card);
+	}
+
+	public Card disposeCard(int index) {
+		index--;
+		Card toBeDisposed = hand.get(index);
+		hand.remove(index);
+		return toBeDisposed;
+	}
 }
