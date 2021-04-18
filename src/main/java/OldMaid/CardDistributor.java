@@ -7,7 +7,6 @@ import java.util.*;
  * @author Dominic
  */
 public class CardDistributor {
-    private static final Deck deck = Deck.getDeck(); //Still not sure about the Deck implementing Singleton pattern
     private static final Random rand = new Random();
 
     /**
@@ -15,7 +14,7 @@ public class CardDistributor {
      * (While there are left cards, randomly distribute);
      * @param players
      */
-    public static void distribute(List<Player> players) {
+    public static void distribute(Deck deck, List<Player> players) {
         int handSize = deck.getCardsInDeck() / players.size();
         players.forEach(player -> {
             for (int i = 0; i < handSize; i++) {

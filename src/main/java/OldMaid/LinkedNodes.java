@@ -1,17 +1,19 @@
 package OldMaid;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * A linked List
  * @param <T> Any obj you want
- * @author Dominic
+ * @author Seiji Dominic Bautista
  */
 public class LinkedNodes<T> {
     private Node head;
-    private Node tail;
     private Node current;
+    private Node tail;
+
     private int size = 0;
 
     /**
@@ -24,6 +26,13 @@ public class LinkedNodes<T> {
 
         public Node(T data) {
             this.data = data;
+        }
+
+        public void selfDestruct() {
+            if (next != null)
+                next.setPrevious(previous);
+            if (previous != null)
+                previous.setNext(next);
         }
 
         public Node getNext() {
@@ -53,7 +62,7 @@ public class LinkedNodes<T> {
      * @param isCyclic
      */
     public LinkedNodes(List<T> nodes, boolean isCyclic) {
-        Collections.shuffle(nodes); //Shuffles the list.
+        //Collections.shuffle(nodes); //Shuffles the list.
         nodes.forEach(this::addNode);
         if (isCyclic) makeCyclic();
     }
@@ -69,11 +78,30 @@ public class LinkedNodes<T> {
         } else {
             current.setNext(newNode);
             newNode.setPrevious(current);
-            setTail(newNode);
         }
         setCurrent(newNode);
+        setTail(current);
         size++;
     }
+
+//    /**
+//     * Adds an Element to the List.
+//     * @param data Data
+//     */
+//    public void addNode(T data) {
+//        Node newNode = new Node(data);
+//        if (head == null) {
+//            setHead(newNode);
+//        } else {
+//            current.setNext(newNode);
+//            newNode.setPrevious(current);
+//        }
+//        setCurrent(newNode);
+//        if (tail == null) {
+//            setTail(newNode);
+//        }
+//        size++;
+//    }
 
     /**
      * Connects the first and last node to make the list cyclic.
@@ -91,22 +119,24 @@ public class LinkedNodes<T> {
     /**
      * Moves the current pointer to the next Node.
      */
-    public void next() {
+    public Node next() {
         if (current.getNext() != null)
             setCurrent(current.getNext());
         else
             System.out.println("End of list reached");
+        return current;
     }
 
     /**
      * Moves the current pointer to the previous node.
      */
-    public void previous() {
+    public Node previous() {
         if (current.getPrevious() != null) {
             setCurrent(current.getPrevious());
         } else {
             System.out.println("Start of list reached");
         }
+        return current;
     }
 
     /**
@@ -131,6 +161,13 @@ public class LinkedNodes<T> {
      */
     public T getNextData() {
         return current.getNext().getData();
+    }
+
+    public void destroyCurrent() {
+        Node temp = current;
+        current = current.getNext();
+        temp.selfDestruct();
+        size--;
     }
 
     public Node getCurrent() {

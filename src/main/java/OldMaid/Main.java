@@ -3,9 +3,8 @@ package OldMaid;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- * Create a breakpoint on "System.out.println("HEllo")" and debug to see the output of the LinkedNodes<Player> on the
- * debugger console. Thanks
+/**
+ * @author Seiji Dominic Bautista
  */
 public class Main {
 
@@ -24,11 +23,8 @@ public class Main {
             initPlayers.add(new Player(name));
         }
 
-        CardDistributor.distribute(initPlayers);    //Distribute cards to players
-        LinkedNodes<Player> players = new LinkedNodes<>(initPlayers, true); //Create cyclic list of players
-        System.out.println("HEllo");
-        /*
-        what do you guys think if we make a class like "OldMadiInitializer" or something.
-         */
+        OldMaid om = new OldMaid(initPlayers);
+
+        om.start();
     }
 }

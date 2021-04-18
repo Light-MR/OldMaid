@@ -5,15 +5,16 @@
  */
 package OldMaid;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  *
- * @author
+ * @author Seiji Dominic Bautista
  */
 class Player {
-      String name;
-      Hand hand;
+      private String name;
+      private final Hand hand;
 
       public Player(String name, Hand hand) {
             this.name = name;
@@ -32,4 +33,17 @@ class Player {
       public Card disposeCard(int index) {
             return hand.disposeCard(index);
       }
+
+      public Hand getHand() {
+            return hand;
+      }
+
+      public String getName() {
+            return name;
+      }
+
+      public String toString() {
+            return String.format("%s has %d cards in hand.", name, hand.size());
+      }
+
 }

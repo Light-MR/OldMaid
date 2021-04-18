@@ -194,4 +194,5 @@ public class Card implements Comparable<Card> {
           return String.format("%d of %s",
                   this.getValue(), this.getSuit().getName());
      }
+
 }
