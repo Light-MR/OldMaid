@@ -15,64 +15,43 @@ import java.util.Scanner;
  * @author Seiji Dominic Bautista
  */
 public class OldMaid {
-	 private final LinkedNodes<Player> players;
-	 private Card oldMaid;
+	 private static LinkedNodes<Player> players;
+	 private static Card oldMaid;
 	 private static Deck deck;
 
-     public OldMaid(List<Player> players) {
+     public OldMaid(List<Player> playerList) {
      	deck = Deck.getDeck();
      	oldMaid = deck.pickCard(Card.Suit.HEARTS, Card.Value.QUEEN);
-     	CardDistributor.distribute(deck, players);
-     	this.players = new LinkedNodes<>(players, true);
+     	CardDistributor.distribute(deck, playerList);
+     	players = new LinkedNodes<>(playerList, true);
 	 }
 
-	/**
-	 * A class whose sole purpose is to distribute cards. (Oh god)
-	 * @author Seiji Dominic Bautista
-	 */
-	static class CardDistributor {
-		private static final Random rand = new Random();
+	 public static void start() {
 
-		/**
-		 * Hand Cards = (Playing cards) / (Player Number);
-		 * (While there are left cards, randomly distribute);
-		 * @param players
-		 */
-		public static void distribute(Deck deck, List<Player> players) {
-			int handSize = deck.getCardsInDeck() / players.size();
-			players.forEach(player -> {
-				for (int i = 0; i < handSize; i++) {
-					player.addToHand(deck.pickCard());
-				}
-			});
-
-			while (!deck.isEmpty()) {
-				players.get(rand.nextInt(players.size())).addToHand(deck.pickCard());
-			}
-		}
-	}
-
-	 public void start() {
+     	//Automatically dispose all of possible pairs. (Happens only at the start of the game)
 		for (int i = 0; i < players.size(); i ++) {
 			players.getCurrentData().getHand().disposePairs();
 			players.next();
 		}
 		System.out.println("All the pairs in players' hand are discarded.");
+
      	Scanner s = new Scanner(System.in);
      	Player previous = null;
      	Player current = players.getCurrentData();
-
      	Hand previousHand = null;
      	Hand currentHand = current.getHand();
 
+     	//Turn starts here
      	do {
 			System.out.println("\n" + current.getName() + "'s turn.\n");
-     		//pick card from previous player.
+
+			//pick card from previous player.
+			//If currentPlayer is the first player, skip this if block
      		if (previous != null) {
      			previousHand = previous.getHand();
      			System.out.println(previous + " Pick one!");
      			for (int i = 1; i <= previousHand.size(); i++) {
-     				System.out.printf("|    %d    |", i);
+     				System.out.printf("    %d    ", i);
 				}
 				System.out.println();
 
@@ -88,6 +67,7 @@ public class OldMaid {
      			currentHand = current.getHand();
 			}
 
+     		//
 			String input;
 			Card first;
 			Card second;

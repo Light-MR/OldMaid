@@ -191,8 +191,7 @@ public class Card implements Comparable<Card> {
 
      @Override
      public String toString() {
-          return String.format("%d of %s",
-                  this.getValue(), this.getSuit().getName());
+          return String.format("%d of %s", this.getValue(), this.getSuit().getName());
      }
 
 }

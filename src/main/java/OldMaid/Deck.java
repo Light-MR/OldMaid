@@ -13,16 +13,18 @@ import java.util.Random;
  * @author Seiji Dominic Bautista
  */
 public class Deck {
+     private static Deck deck = null;
      private final boolean[][] cards;
      private int cardsInDeck;
-     Random random = new Random();
-     private static Deck deck = null;
+     private static Random random;
+
 
      /**
       * Instantiate boolean[][] cards and set all flags to true.
       * Instantiate cardsInDeck (All available cards)
       */
      private Deck() {
+          random = new Random();
           cards = new boolean[4][14];
           for (int s = 0; s < 4; s++) {
                for (int f = 0; f < 14; f++) {
@@ -87,46 +89,6 @@ public class Deck {
      }
 
      /**
-      * Pick a specific Card.
-      * @param suit card suit
-      * @param number card value
-      * @return the Card if available. Return null otherwise.
-      */
-     public Card pickCard(int suit, int number) {
-          try {
-               if (checkAvailability(suit, number)) {
-                    cards[suit][number] = false;
-                    return new Card(suit, number);
-               }
-          } catch (AssertionError e) {
-               System.out.println("All cards in the deck are gone.");
-               return null;
-          }
-
-          System.out.println("This card is not available.");
-          return null;
-     }
-
-
-     public Card pickCard(Card.Suit suits, Card.Value value) {
-          int suit = suits.getNumber();
-          int number = value.getNumber();
-
-          try {
-               if (checkAvailability(suit, number)) {
-                    cards[suit][number] = false;
-                    return new Card(suit, number);
-               }
-          } catch (AssertionError e) {
-               System.out.println("All cards in the deck are gone.");
-               return null;
-          }
-
-          System.out.println("This card is not available.");
-          return null;
-     }
-
-     /**
       * Pick a random Card
       * @return a random unique Card.
       */
@@ -148,6 +110,51 @@ public class Deck {
      }
 
      /**
+      * Gets the card suit and value using the Card.Suit and Card.Value enums.
+      * @param suits Card.Suit
+      * @param value Card.Value
+      * @return Available card
+      */
+     public Card pickCard(Card.Suit suits, Card.Value value) {
+          int suit = suits.getNumber();
+          int number = value.getNumber();
+
+          try {
+               if (checkAvailability(suit, number)) {
+                    cards[suit][number] = false;
+                    return new Card(suit, number);
+               }
+          } catch (AssertionError e) {
+               System.out.println("All cards in the deck are gone.");
+               return null;
+          }
+
+          System.out.println("This card is not available.");
+          return null;
+     }
+
+     /**
+      * Pick a specific Card.
+      * @param suit card suit
+      * @param number card value
+      * @return the Card if available. Return null otherwise.
+      */
+     public Card pickCard(int suit, int number) {
+          try {
+               if (checkAvailability(suit, number)) {
+                    cards[suit][number] = false;
+                    return new Card(suit, number);
+               }
+          } catch (AssertionError e) {
+               System.out.println("All cards in the deck are gone.");
+               return null;
+          }
+
+          System.out.println("This card is not available.");
+          return null;
+     }
+
+     /**
       * Just return the count of the cards in the deck.
       * I trust my checkAvailability() method.
       * @return cardsInDeck
@@ -166,7 +173,7 @@ public class Deck {
      }
 
      /**
-      *
+      * Checks if there are still cards in the deck.
       * @return boolean
       */
      public boolean isEmpty() {
@@ -174,23 +181,16 @@ public class Deck {
      }
 
      public boolean contains(Card card) {
-          return cards[card.getSuit().getNumber()][card.getValue()];
-     }
-
-     /**
-      * Accepts an arraylist of players and distribute the cards to those
-      * players evenly. Left cards are distributed to random players.
-      * @param players ArrayList of players
-      */
-     public void distribute(ArrayList<Player> players) {
-
+          int suit = card.getSuit().getNumber();
+          int value = card.getValue();
+          return cards[suit][value];
      }
 
      public static Deck getDeck() {
-          if (deck != null) {
-               return deck;
-          } else
-               return new Deck();
+          if (deck == null) {
+               deck = new Deck();
+          }
+          return deck;
      }
 
      public int getCardsInDeck() {

@@ -9,6 +9,7 @@ import java.util.*;
 public class CardDistributor {
     private static final Random rand = new Random();
 
+
     /**
      * Hand Cards = (Playing cards) / (Player Number);
      * (While there are left cards, randomly distribute);
