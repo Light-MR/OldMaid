@@ -13,7 +13,6 @@ import java.util.Random;
  * @author Seiji Dominic Bautista
  */
 public class Deck {
-     private static Deck deck = null;
      private final boolean[][] cards;
      private int cardsInDeck;
      private static Random random;
@@ -23,7 +22,7 @@ public class Deck {
       * Instantiate boolean[][] cards and set all flags to true.
       * Instantiate cardsInDeck (All available cards)
       */
-     private Deck() {
+     public Deck() {
           random = new Random();
           cards = new boolean[4][14];
           for (int s = 0; s < 4; s++) {
@@ -186,11 +185,12 @@ public class Deck {
           return cards[suit][value];
      }
 
-     public static Deck getDeck() {
-          if (deck == null) {
-               deck = new Deck();
-          }
-          return deck;
+     public void discard(int suit, int number) {
+          cards[suit][number] = false;
+     }
+
+     public void discard(Card.Suit suit, Card.Value number) {
+          cards[suit.getNumber()][number.getNumber()] = false;
      }
 
      public int getCardsInDeck() {

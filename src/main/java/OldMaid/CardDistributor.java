@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * A class whose sole purpose is to distribute cards. (Oh god)
- * @author Dominic
+ * @author Seiji Dominic Bautista
  */
 public class CardDistributor {
     private static final Random rand = new Random();

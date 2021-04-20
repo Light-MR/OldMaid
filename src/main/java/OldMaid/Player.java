@@ -17,7 +17,7 @@ class Player {
       private final Hand hand;
 
       public Player(String name, Hand hand) {
-            this.name = name;
+            setName(name);
             this. hand = hand;
       }
 
@@ -42,8 +42,22 @@ class Player {
             return name;
       }
 
+      public void setName(String name) {
+            String first = name.substring(0, 1);
+            String last = name.substring(1, name.length() + 1);
+            if (Character.isAlphabetic(name.charAt(0))) {
+                  first = first.toUpperCase();
+            }
+
+            this.name = first.concat(last);
+      }
+
+//      public String toString() {
+//            return String.format("%s has %d cards in hand.", name, hand.size());
+//      }
+
       public String toString() {
-            return String.format("%s has %d cards in hand.", name, hand.size());
+            return name;
       }
 
 }

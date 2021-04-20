@@ -11,11 +11,9 @@ import java.util.LinkedList;
 
 /**
  *
- * @author
+ * @author Seiji Dominic Bautista
  */
 public class Hand extends LinkedList<Card> {
-
-
 	public void addToHand(Card card) {
 		add(card);
 	}
@@ -57,8 +55,5 @@ public class Hand extends LinkedList<Card> {
 				perma++;
 			}
 		}
-
-		System.out.println(this);
-
 	}
 }

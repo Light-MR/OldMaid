@@ -54,12 +54,16 @@ public class LinkedNodes<T> {
         public void setPrevious(Node previous) {
             this.previous = previous;
         }
+
+        public String toString() {
+            return data.toString();
+        }
     }
 
     /**
      * Constructor: Creates a linked list data structure of "nodes". Becomes cyclic if "isCyclic" is true.
-     * @param nodes
-     * @param isCyclic
+     * @param nodes List
+     * @param isCyclic boolean
      */
     public LinkedNodes(List<T> nodes, boolean isCyclic) {
         //Collections.shuffle(nodes); //Shuffles the list.
@@ -83,25 +87,6 @@ public class LinkedNodes<T> {
         setTail(current);
         size++;
     }
-
-//    /**
-//     * Adds an Element to the List.
-//     * @param data Data
-//     */
-//    public void addNode(T data) {
-//        Node newNode = new Node(data);
-//        if (head == null) {
-//            setHead(newNode);
-//        } else {
-//            current.setNext(newNode);
-//            newNode.setPrevious(current);
-//        }
-//        setCurrent(newNode);
-//        if (tail == null) {
-//            setTail(newNode);
-//        }
-//        size++;
-//    }
 
     /**
      * Connects the first and last node to make the list cyclic.
@@ -170,14 +155,6 @@ public class LinkedNodes<T> {
         size--;
     }
 
-    public Node getCurrent() {
-        return current;
-    }
-
-    public Node getHead() {
-        return head;
-    }
-
     public int size() {
         return this.size;
     }
@@ -208,6 +185,15 @@ public class LinkedNodes<T> {
      */
     public void setTail(Node tail) {
         this.tail = tail;
+    }
+
+    public String toString() {
+        StringBuilder tem = new StringBuilder();
+        for (int i = 0; i < this.size; i++) {
+            tem.append(current.toString()).append(" ");
+            next();
+        }
+        return tem.toString();
     }
 }
 
