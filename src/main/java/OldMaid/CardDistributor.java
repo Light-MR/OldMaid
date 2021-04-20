@@ -4,18 +4,18 @@ import java.util.*;
 
 /**
  * A class whose sole purpose is to distribute cards. (Oh god)
- * @author Dominic
+ * @author Seiji Dominic Bautista
  */
 public class CardDistributor {
-    private static final Deck deck = Deck.getDeck(); //Still not sure about the Deck implementing Singleton pattern
     private static final Random rand = new Random();
+
 
     /**
      * Hand Cards = (Playing cards) / (Player Number);
      * (While there are left cards, randomly distribute);
      * @param players
      */
-    public static void distribute(List<Player> players) {
+    public static void distribute(Deck deck, List<Player> players) {
         int handSize = deck.getCardsInDeck() / players.size();
         players.forEach(player -> {
             for (int i = 0; i < handSize; i++) {

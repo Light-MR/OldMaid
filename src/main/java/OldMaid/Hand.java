@@ -5,27 +5,55 @@
  */
 package OldMaid;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
  *
- * @author
+ * @author Seiji Dominic Bautista
  */
-public class Hand {
-
-	LinkedList<Card> hand = new LinkedList<>();
-
-	public Hand() {
-	}
-
+public class Hand extends LinkedList<Card> {
 	public void addToHand(Card card) {
-		hand.add(card);
+		add(card);
 	}
 
 	public Card disposeCard(int index) {
-		index--;
-		Card toBeDisposed = hand.get(index);
-		hand.remove(index);
+		Card toBeDisposed = get(index);
+		remove(index);
 		return toBeDisposed;
+	}
+
+	@Override
+	public void sort(Comparator<? super Card> c) {
+		super.sort(c);
+	}
+
+	public void sortCards() {
+		this.sort(Card::compareTo);
+	}
+
+	public void shuffleCards() {
+		Collections.shuffle(this);
+	}
+
+	public void disposePairs() {
+		sortCards();
+
+		int perma = 0;
+		int tem;
+
+		while (perma + 1 <  this.size()) {
+			tem = perma + 1;
+			Card c1 = get(perma);
+			Card c2 = get(tem);
+
+			if (c1.compareTo(c2) == 0) {
+				remove(tem);
+				remove(perma);
+			} else {
+				perma++;
+			}
+		}
 	}
 }
